@@ -14,18 +14,41 @@ app.use('/static', express.static(__dirname + '/static'));
 var privateKey = fs.readFileSync(__dirname + '/config/privateKey');
 var appId = config.NEXMO_VOICE_ID;
 
+var opts = {debug: true};
 
 var nexmo = new Nexmo({
 apiKey: config.NEXMO_API_KEY,
 apiSecret: config.NEXMO_API_SECRET,
 applicationId: appId,
 privateKey: privateKey
-});
+},opts);
 
 
 app.get('/', function (req, res) {
   res.sendFile(__dirname+'/index.html');
 });
+
+
+app.post('/sms', function (req, res){
+
+    var post_data = req.body;
+    var sender = 'NEXMO';
+    var recipient = post_data.to_phone_number;
+    var message = post_data.message_body;
+    if(recipient not in config.PRE_CONFIGURED_NUMBERS){
+        res.json({"msg":"Thank you for trying our Services! We are in Privte Beta Currently, pls contact@ jain.rohit.2929@gmi.com for access"})
+    }
+
+    nexmo.message.sendSms(sender, recipient, message, function (res_sms, err_sms){
+        if(err_sms){
+            res.json({"msg":"Could not send message, try Again!", 'error':err_sms})
+        }
+        console.log(res_sms);
+        res.json({"msg":"message Sent succesfully!"});
+    });
+
+});
+
 
 app.get('/send_answer_script/:file_name', function (req, res){
         file_name = req.params.file_name;
