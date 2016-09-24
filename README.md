@@ -14,7 +14,7 @@ See here: https://github.com/Nexmo/nexmo-cli/issues/81
 To Install Essential Packages
 =============================
 
-npm install package.json
+npm install
 
 
 ==============================
