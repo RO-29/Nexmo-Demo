@@ -27,5 +27,9 @@ To Run
 npm server.js
 
 
+Post Man Collection
+===============================
+
+https://www.getpostman.com/collections/6322d5da1a99ae686f38
 
 
