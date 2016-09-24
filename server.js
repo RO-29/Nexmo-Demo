@@ -35,7 +35,7 @@ app.post('/sms', function (req, res){
     var sender = 'NEXMO';
     var recipient = post_data.to_phone_number;
     var message = post_data.message_body;
-    if(recipient not in config.PRE_CONFIGURED_NUMBERS){
+    if(!(recipient in config.PRE_CONFIGURED_NUMBERS)){
         res.json({"msg":"Thank you for trying our Services! We are in Privte Beta Currently, pls contact@ jain.rohit.2929@gmi.com for access"})
     }
 
