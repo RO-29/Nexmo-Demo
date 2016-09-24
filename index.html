@@ -10,16 +10,97 @@ Nexmo Challenge!
 
 <h1>Nexmo Sms-Call | Nimblea.pe Challenge !</h1>
 
-<br><br>
-<center><input id="phone" type="text" id="phone_number" placeholder="Input Phone Number" style="background-color: transparent;border-style: solid;border-width: 2px 2px 2px 2px;border-color: #88889a;color: #ffffff;font-size: 40px;line-height: 100%;text-align: center;height:60px;width: 500px;box-sizing: border-box;vertical-align: top;margin: 0;padding: 0;"/>
-</center>
+<div id="wrapper">
+
 <div id="sms">
+    <br><br><br><br><br><br><br><br><br><br>
+<center><input id="phone_sms" type="text" placeholder="Input Recipient Phone Number" style="background-color: transparent;border-style: solid;border-width: 2px 2px 2px 2px;border-color: #88889a;color: #ffffff;font-size: 40px;line-height: 100%;text-align: center;height:60px;width: 500px;box-sizing: border-box;vertical-align: top;margin: 0;padding: 0;"/>
+<br><br><br><br>
+<input id="message_sms" type="text" placeholder="Sms Text for Recipient" style="background-color: transparent;border-style: solid;border-width: 2px 2px 2px 2px;border-color: #88889a;color: #ffffff;font-size: 40px;line-height: 100%;text-align: center;height:100px;width: 500px;box-sizing: border-box;vertical-align: top;margin: 0;padding: 0;"/>
+
+<br><br><br><br>
+<a href="#" id="smsInit">Init SMS</a>
+
+<br><br><br><br>
+<div id="sms_result">
+       </div>
+</center>
+
 </div>
+
+<div id="call">
+    <br><br><br><br><br><br><br><br><br><br>
+<center><input id="phone_call" type="text" placeholder="Input Recipient Phone Number" style="background-color: transparent;border-style: solid;border-width: 2px 2px 2px 2px;border-color: #88889a;color: #ffffff;font-size: 40px;line-height: 100%;text-align: center;height:60px;width: 500px;box-sizing: border-box;vertical-align: top;margin: 0;padding: 0;"/>
+
+<br><br><br><br>
+
+<input id="message_call" type="text" placeholder="(Optional) Text Recipient hear" style="background-color: transparent;border-style: solid;border-width: 2px 2px 2px 2px;border-color: #88889a;color: #ffffff;font-size: 40px;line-height: 100%;text-align: center;height:100px;width: 500px;box-sizing: border-box;vertical-align: top;margin: 0;padding: 0;"/>
+
+<br><br><br><br>
+<a href="#" id="callInit">Init Call</a>
+<br><br><br><br>
+<div id="call_result">
+       </div>
+</center>
+</div>
+
+</div>
+
 
 
 <script src="/static/js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
+    $('#callInit').click(function(){
+        phone_no_call =  $('#phone_call').val();
+        message_call = $('#message_call').val();
+        if(!phone_no_call)
+            alert("Enter Recipient number for call!");
+        if (phone_no_call){
+            var data_call = {"to_phone_number":phone_no_call}
+            if(message_call)
+                data_call["answer"] = message_call
+            $.ajax({
+              type: "POST",
+              url: "http://139.59.18.150/call",
+              data: data_call,
+              cache: false,
+              success: function(data){
+                 console.log(data);
+                 alert('Call initiated!<> See browser console for more info')
+              },
+              error: function(req, err){ alert(err)}
+            });
+        }
+
+    });
+
+    $('#smsInit').click(function(){
+        phone_no_sms =  $('#phone_sms').val()
+        message_sms = $('message_sms').val()
+        if(!phone_no_sms)
+            alert("Enter Recipient number for sms!");
+        else if(!message_sms)
+            alert('Enter Sms Body text')
+        if (phone_no_sms && message_sms){
+            var data_sms = {"to_phone_number":phone_no_sms,"message_body":message_sms}
+            $.ajax({
+              type: "POST",
+              url: "http://139.59.18.150/sms",
+              data: data_sms,
+              dataType : 'application/json',
+              success: function(data){
+                 console.log(data);
+                 $("#sms_result").html(data);
+                 alert('Sms initiated!<> See browser console for more info')
+
+              },
+              error: function(req, err){alert(err)}
+            });
+        }
+
+    });
 
 
 });
