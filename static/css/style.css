@@ -46,3 +46,57 @@ h1 {
   line-height: 100%;
   color:white;
   }
+
+#callInit {
+  background-color: #ffffff;
+  width: 200px;
+  height: 60px;
+  box-sizing: border-box;
+  line-height: 100%;
+  display: inline-block;
+  font-size: 40px;
+  margin: 0 0 0 15px;
+  padding: 10px;
+  text-align: center;
+  color: #454545;
+  opacity: 0.9;
+  text-decoration: none; }
+  #callInit:focus {
+    opacity: 1; }
+  #callInit:hover {
+    cursor: pointer;
+    opacity: 1; }
+
+#smsInit {
+  background-color: #ffffff;
+  width: 200px;
+  height: 60px;
+  box-sizing: border-box;
+  line-height: 100%;
+  display: inline-block;
+  font-size: 40px;
+  margin: 0 0 0 15px;
+  padding: 10px;
+  text-align: center;
+  color: #454545;
+  opacity: 0.9;
+  text-decoration: none; }
+  #smsInit:focus {
+    opacity: 1; }
+  #smsInit:hover {
+    cursor: pointer;
+    opacity: 1; }
+
+#sides{
+margin:0;
+}
+#sms{
+float:left;
+width:60%;
+overflow:hidden;
+}
+#call{
+float:left;
+width:40%;
+overflow:auto;
+} 
