@@ -35,14 +35,18 @@ app.post('/sms', function (req, res){
     var sender = 'NEXMO';
     var recipient = post_data.to_phone_number;
     var message = post_data.message_body;
+    var beta = true
     if(config.PRE_CONFIGURED_NUMBERS.indexOf(recipient) == -1)
-        res.json({"msg":"Thank you for trying our Services! We are in Privte Beta Currently, pls contact@ jain.rohit.2929@gmi.com for access"});
+        beta = false
     
     nexmo.message.sendSms(sender, recipient, message, function (err_sms, res_sms){
-        if(err_sms)
+        if(!beta)
+            res.send("Thank you for trying our Services! We are in Privte Beta Currently, pls contact@ jain.rohit.2929@gmail.com for access");
+        if(err_sms &&(beta))
             res.json({"msg":"Error in sending Sms!", 'resp':err_sms});
-        else
+        else if(res_sms &&beta)
             res.json({"msg":"Sent Succesfully", 'resp':res_sms});
+
     });
 });
 
