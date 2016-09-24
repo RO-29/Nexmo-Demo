@@ -68,7 +68,10 @@ $(document).ready(function(){
               cache: false,
               success: function(data){
                  console.log(data);
-                 alert('Call initiated!<> See browser console for more info')
+                 if(typeof(data)=="string")
+                    alert(data);
+                 else
+                    alert('Call initiated!<> See browser console for more info');
               },
               error: function(req, err){ alert(err)}
             });
@@ -78,22 +81,23 @@ $(document).ready(function(){
 
     $('#smsInit').click(function(){
         phone_no_sms =  $('#phone_sms').val()
-        message_sms = $('message_sms').val()
+        message_sms = $('#message_sms').val()
         if(!phone_no_sms)
             alert("Enter Recipient number for sms!");
         else if(!message_sms)
             alert('Enter Sms Body text')
-        if (phone_no_sms && message_sms){
+        else{
             var data_sms = {"to_phone_number":phone_no_sms,"message_body":message_sms}
             $.ajax({
               type: "POST",
               url: "http://139.59.18.150/sms",
               data: data_sms,
-              dataType : 'application/json',
               success: function(data){
                  console.log(data);
-                 $("#sms_result").html(data);
-                 alert('Sms initiated!<> See browser console for more info')
+                 if(typeof(data)=="string")
+                    alert(data);
+                 else
+                    alert('Sms initiated!<> See browser console for more info')
 
               },
               error: function(req, err){alert(err)}
