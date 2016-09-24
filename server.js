@@ -46,11 +46,15 @@ app.post('/call',function(req, res){
     var post_data = req.body;
     var answer_text = post_data.answer;
     var answer_file = 'pre_load_voice.json';
+    var to_phone_number = post_data.to_phone_number
+    if(to_phone_number==null)
+        to_phone_number = '919717985630'
 
     if(answer_text){
-        var answer_json = [{'action':'talk','voice_name':'Rohit','text':answer_text}];        
+        var answer_json = [{'action':'talk','voice_name':'Russell','text':answer_text}];        
         var req_id = (new Date).getTime();
         answer_file = req_id +'.json';
+
         var file_path = __dirname+'/static/answer_scripts/'+answer_file;
         
         //Write the Inoming answer to json file and make call using this text, not pre_loaded answer
@@ -65,7 +69,7 @@ app.post('/call',function(req, res){
     nexmo.calls.create({
      to: [{
              type: 'phone',
-             number: '919717985630'
+             number: to_phone_number
          }],
      from: {
              type: 'phone',
